@@ -31,21 +31,17 @@ namespace InterView.Models.DAO
         {
             modelBuilder.Entity<Employee>(entity =>
             {
-                entity.HasNoKey();
-
-                entity.ToTable("EMPLOYEE");
+                entity.ToTable("Employee");
 
                 entity.Property(e => e.Address).HasMaxLength(50);
 
-                entity.Property(e => e.Id).HasColumnName("ID");
-
                 entity.Property(e => e.Name)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(10)
+                    .IsFixedLength();
 
                 entity.Property(e => e.Phone)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasMaxLength(10)
+                    .IsFixedLength();
             });
 
             OnModelCreatingPartial(modelBuilder);

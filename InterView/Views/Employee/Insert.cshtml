@@ -1,0 +1,44 @@
+﻿@using InterView.Models.ViewModels
+@model EmployeeViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>新增員工</h2>
+
+@using (Html.BeginForm("Insert", "Employee", ViewContext.RouteData.Values, FormMethod.Post))
+{
+    <fieldset>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Name)
+        </div>
+
+        <div class="editor-field">
+            @Html.EditorFor(m => m.Name)
+            @Html.ValidationMessageFor(modelItem => Model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Address)
+        </div>
+
+        <div class="editor-field">
+            @Html.EditorFor(m => m.Address)
+            @Html.ValidationMessageFor(modelItem => Model.Address)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Phone)
+        </div>
+
+        <div class="editor-field">
+            @Html.EditorFor(m => m.Phone)
+            @Html.ValidationMessageFor(modelItem => Model.Phone)
+        </div>
+    </fieldset>
+    <br />
+    <p>
+        <button type="submit" class="btn btn-primary">提交</button>
+    </p>
+}

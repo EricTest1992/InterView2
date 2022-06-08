@@ -1,5 +1,54 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using InterView.Models.ViewModels
+@model IEnumerable<EmployeeViewModel>
 @{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h2 class="text-danger">@TempData["ResultMsg"]</h2>
+
+@Html.ActionLink("新增員工", "Insert", "Employee", null, new { @class = "btn btn-primary" })
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("員工 ID")
+        </th>
+        <th>
+            @Html.Label("員工名稱")
+        </th>
+        <th>
+            @Html.Label("員工地址")
+        </th>
+        <th>
+            @Html.Label("員工電話")
+        </th>
+        <th>
+            @Html.Label("功能")
+        </th>
+    </tr>
+
+    @foreach (EmployeeViewModel emp in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => emp.Id)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => emp.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.Address)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => emp.Phone)
+            </td>
+            <td>
+                @Html.ActionLink("編輯", "Insert", "Employee", null, new { @class = "btn btn-warning" })
+                @Html.ActionLink("刪除", "Insert", "Employee", null, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

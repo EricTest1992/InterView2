@@ -1,4 +1,5 @@
-﻿using InterView.Models.ViewModels;
+﻿using InterView.Models.DAO;
+using InterView.Models.ViewModels;
 
 namespace InterView.Services.Interface
 {
@@ -8,8 +9,10 @@ namespace InterView.Services.Interface
 
         public EmployeeViewModel GetEmployeesSelect(int employeeID);
 
-        public void InsertEmployees(out string errMsg);
-        public void UpdateEmployees(out string errMsg);
-        public void DeleteEmployees(out string errMsg);
+        public void InsertEmployees(Employee employee);
+
+        public void UpdateEmployees(int employeeID);
+
+        public void DeleteEmployees(int employeeID);
     }
 }

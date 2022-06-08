@@ -1,18 +1,35 @@
-﻿using InterView.Models.ViewModels;
+﻿using InterView.Models.DAO;
+using InterView.Models.ViewModels;
 using InterView.Services.Interface;
+using System.Transactions;
 
 namespace InterView.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        public void DeleteEmployees(out string errMsg)
+        private InterViewContext _interViewContext;
+
+        public EmployeeService(InterViewContext interViewContext)
+        {
+            _interViewContext = interViewContext;
+        }
+
+        public void DeleteEmployees(int employeeID)
         {
             throw new NotImplementedException();
         }
 
         public List<EmployeeViewModel> GetEmployees()
         {
-            throw new NotImplementedException();
+            List<Employee> employees = _interViewContext.Employees.ToList();
+
+            return employees.Select(x => new EmployeeViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Address = x.Address,
+                Phone = x.Phone
+            }).ToList();
         }
 
         public EmployeeViewModel GetEmployeesSelect(int employeeID)
@@ -20,12 +37,18 @@ namespace InterView.Services
             throw new NotImplementedException();
         }
 
-        public void InsertEmployees(out string errMsg)
+        public void InsertEmployees(Employee employee)
         {
-            throw new NotImplementedException();
+            using TransactionScope transaction = new();
+
+            _interViewContext.Employees.Add(employee);
+
+            _interViewContext.SaveChanges();
+
+            transaction.Complete();
         }
 
-        public void UpdateEmployees(out string errMsg)
+        public void UpdateEmployees(int employeeID)
         {
             throw new NotImplementedException();
         }
