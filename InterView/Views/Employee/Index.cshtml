@@ -46,8 +46,8 @@
                 @Html.DisplayFor(modelItem => emp.Phone)
             </td>
             <td>
-                @Html.ActionLink("編輯", "Insert", "Employee", null, new { @class = "btn btn-warning" })
-                @Html.ActionLink("刪除", "Insert", "Employee", null, new { @class = "btn btn-danger" })
+                @Html.ActionLink("編輯", "Update", "Employee", new { employeeID = emp.Id }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("刪除", "Delete", "Employee", new { employeeID = emp.Id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
     }

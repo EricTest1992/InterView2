@@ -11,8 +11,8 @@ namespace InterView.Services.Interface
 
         public void InsertEmployees(Employee employee);
 
-        public void UpdateEmployees(int employeeID);
+        public void UpdateEmployees(Employee tempEmployee);
 
-        public void DeleteEmployees(int employeeID);
+        public void DeleteEmployee(int employeeID);
     }
 }

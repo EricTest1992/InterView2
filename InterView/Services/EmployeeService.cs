@@ -7,16 +7,24 @@ namespace InterView.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        private InterViewContext _interViewContext;
+        private readonly InterViewContext _interViewContext;
 
         public EmployeeService(InterViewContext interViewContext)
         {
             _interViewContext = interViewContext;
         }
 
-        public void DeleteEmployees(int employeeID)
+        public void DeleteEmployee(int employeeID)
         {
-            throw new NotImplementedException();
+            using TransactionScope transaction = new();
+
+            Employee employee = _interViewContext.Employees.First(employee => employee.Id == employeeID);
+
+            _interViewContext.Employees.Remove(employee);
+
+            _interViewContext.SaveChanges();
+
+            transaction.Complete();
         }
 
         public List<EmployeeViewModel> GetEmployees()
@@ -34,7 +42,15 @@ namespace InterView.Services
 
         public EmployeeViewModel GetEmployeesSelect(int employeeID)
         {
-            throw new NotImplementedException();
+            Employee employee = _interViewContext.Employees.First(employee => employee.Id == employeeID);
+
+            return new EmployeeViewModel
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                Address = employee.Address,
+                Phone = employee.Phone
+            };
         }
 
         public void InsertEmployees(Employee employee)
@@ -48,9 +64,19 @@ namespace InterView.Services
             transaction.Complete();
         }
 
-        public void UpdateEmployees(int employeeID)
+        public void UpdateEmployees(Employee tempEmployee)
         {
-            throw new NotImplementedException();
+            using TransactionScope transaction = new();
+
+            Employee employee = _interViewContext.Employees.First(employee => employee.Id == tempEmployee.Id);
+
+            employee.Name = tempEmployee.Name;
+            employee.Address = tempEmployee.Address;
+            employee.Phone = tempEmployee.Phone;
+
+            _interViewContext.SaveChanges();
+
+            transaction.Complete();
         }
     }
 }
